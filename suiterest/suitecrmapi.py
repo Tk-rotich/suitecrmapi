@@ -15,7 +15,6 @@ class SuitCrmApi():
 				'response_type' : 'json', 'rest_data' : data}
 		params = urllib.parse.urlencode(args).encode('utf-8')
 		response = requests.get(self.Url, params).json()
-		# data = json.loads(response.decode('utf-8'))
 		session_id = response['id']
 		return session_id
 
@@ -27,6 +26,3 @@ class SuitCrmApi():
 		params = urllib.parse.urlencode(args).encode('utf-8')
 		response = requests.get(self.Url, params)
 		return response.json()
-
-# suitecrm = SuitCrmApi()
-# x = suitecrm.getData()

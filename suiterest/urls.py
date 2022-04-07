@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from suiterest.views import HomeView
+from suiterest.views import HomeView, Cryptoview
 
 urlpatterns = [
-    path('', HomeView.as_view(), name='home')
+    path('', HomeView.as_view(), name='home'),
+    path('api', Cryptoview.as_view(), name='crypto')
 ]

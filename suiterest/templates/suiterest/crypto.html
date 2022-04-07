@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        #chart {
+            max-width: 650px;
+            margin: 35px auto;
+          }
+    </style>
+
+       {% comment %} {{ data }} {% endcomment %}
+
+       <div id="chart">
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        let data = JSON.parse("{{data|escapejs}}");
+        const finaldata = []
+        Object.keys(data).forEach(key => {
+            let listdata = [];
+            let obj_data = {}
+            let date = new Date(key * 1000)
+            let cleandate = "" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + ("00" + date.getDate()).slice(-2)
+            listdata.push( data[key]['open'], data[key]['high'], data[key]['low'], data[key]['close']);
+            obj_data= { x: cleandate, y: listdata}
+            finaldata.push(obj_data)
+          });
+        console.log(finaldata)
+        var options = {
+        series: [{
+        data: finaldata
+        }],
+        chart: {
+        type: 'candlestick',
+        height: 450
+        },
+        title: {
+        text: 'Bitcoin Price Graph',
+        align: 'left'
+        },
+        xaxis: {
+        type: 'datetime'
+        },
+        yaxis: {
+        tooltip: {
+            enabled: true
+        }
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  </body>
+</html>

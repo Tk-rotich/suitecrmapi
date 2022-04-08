@@ -16,7 +16,8 @@ class CryptoCurrencies():
         df = df.iloc[::-1].drop(['1b. open (USD)', '2b. high (USD)', '3b. low (USD)', '4b. close (USD)', '6. market cap (USD)'], axis = 1)
         if start_date:
             df = df[df.index >= start_date]
-        df = df.to_json(orient='index')
+        df = df.to_json(orient='index', date_format='iso')
         parsed = json.loads(df)
         data = json.dumps(parsed, indent=4)
+        # print(df)
         return data

@@ -23,13 +23,12 @@
         Object.keys(data).forEach(key => {
             let listdata = [];
             let obj_data = {}
-            let date = new Date(key * 1000)
-            let cleandate = "" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + ("00" + date.getDate()).slice(-2)
-            listdata.push( data[key]['open'], data[key]['high'], data[key]['low'], data[key]['close']);
+            let date = new Date(key)
+            let cleandate = date.getFullYear() + "-" + (" " + (date.getMonth() + 1)).slice(-2) + "-" + ("00" + date.getDate()).slice(-2)
+            listdata = [ data[key]['open'], data[key]['high'], data[key]['low'], data[key]['close'] ];
             obj_data= { x: cleandate, y: listdata}
             finaldata.push(obj_data)
           });
-        console.log(finaldata)
         var options = {
         series: [{
         data: finaldata

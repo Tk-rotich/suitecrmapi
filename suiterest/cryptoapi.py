@@ -19,5 +19,4 @@ class CryptoCurrencies():
         df = df.to_json(orient='index', date_format='iso')
         parsed = json.loads(df)
         data = json.dumps(parsed, indent=4)
-        # print(df)
         return data

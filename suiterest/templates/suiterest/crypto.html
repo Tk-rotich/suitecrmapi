@@ -11,11 +11,23 @@
             margin: 35px auto;
           }
     </style>
-
-       {% comment %} {{ data }} {% endcomment %}
-
-       <div id="chart">
-        </div>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+              <div class="col-2 pt-4">
+                <h6>Choose Start Date.</h6>
+                    <form action="{% url 'crypto' %}" method="POST">{% csrf_token %}
+                        {{form.as_p}}
+                        <button type="submit">Submit</button>
+                    </form>
+              </div>
+              <div class="col-10">
+                <div id="chart">
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         let data = JSON.parse("{{data|escapejs}}");
@@ -24,7 +36,7 @@
             let listdata = [];
             let obj_data = {}
             let date = new Date(key)
-            let cleandate = date.getFullYear() + "-" + (" " + (date.getMonth() + 1)).slice(-2) + "-" + ("00" + date.getDate()).slice(-2)
+            let cleandate = date.getFullYear() + "-" + ("00" + (date.getMonth() + 1)).slice(-2) + "-" + ("00" + date.getDate()).slice(-2)
             listdata = [ data[key]['open'], data[key]['high'], data[key]['low'], data[key]['close'] ];
             obj_data= { x: cleandate, y: listdata}
             finaldata.push(obj_data)
@@ -38,7 +50,7 @@
         height: 450
         },
         title: {
-        text: 'Bitcoin Price Graph',
+        text: 'Bitcoin Price Graph($) ',
         align: 'left'
         },
         xaxis: {
@@ -53,6 +65,11 @@
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
+        (function () {
+            $("#id_start_date").datetimepicker({
+              format: '%Y-%m-%d',
+            });
+          });
 
     </script>
     

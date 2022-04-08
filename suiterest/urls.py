@@ -18,6 +18,7 @@ from django.urls import path, include
 from suiterest.views import HomeView, Cryptoview
 
 urlpatterns = [
-    path('', HomeView.as_view(), name='home'),
-    path('api', Cryptoview.as_view(), name='crypto')
+    path('crypto/bitcoin', Cryptoview.as_view(), name='crypto'),
+    path('suite-crm', HomeView.as_view(), name='home'),
+    
 ]
